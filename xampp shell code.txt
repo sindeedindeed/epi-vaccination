@@ -19,7 +19,11 @@ CREATE TABLE Child (
 -- Insert data into Child table
 INSERT INTO Child (child_id, child_name, dob, age, address, guardian_name, contact_no) VALUES
 (10001, 'Farhan Hasib', '2014-12-20', 10, 'Road-8, Block-C, Eskaton, Dhaka', 'Abdul Alim', '01910000001'),
-(10002, 'Ramim Ayon', '2014-12-19', 10, 'Road-2, Block-D, Uttara, Dhaka', 'Ruhul Amin', '01910000002');
+(10002, 'Ramim Ayon', '2014-12-19', 10, 'Road-2, Block-D, Uttara, Dhaka', 'Ruhul Amin', '01910000002')
+(5, 'Tahmid Hasan', '2017-03-15', 7, 'House-45, Block-A, Gulshan, Dhaka', 'Hasan Ali', '01720000001'),
+(6, 'Ishrat Jahan', '2018-08-21', 6, 'Road-11, Block-F, Banani, Dhaka', 'Farida Begum', '01721000002'),
+(7, 'Arman Khan', '2016-12-10', 8, 'Sector-4, Uttara, Dhaka', 'Saiful Khan', '01722000003'),
+(8, 'Mahi Rahman', '2015-09-05', 9, 'Flat-8, Building-12, Mirpur-1, Dhaka', 'Nadia Rahman', '01723000004');
 
 -- Create the Vaccine table
 CREATE TABLE Vaccine (
@@ -58,7 +62,9 @@ CREATE TABLE Healthcare_Professional (
 -- Corrected INSERT statement for Healthcare_Professional table
 INSERT INTO Healthcare_Professional (id, name, role, years_of_experience, qualification, contact_info) VALUES
 (700001, 'Doctor One', 'Doctor', 2, 'MBBS', '01710000001'),
-(800001, 'Nurse One', 'Nurse', 1, 'BSc Nursing', '01810000001');
+(800001, 'Nurse One', 'Nurse', 1, 'BSc Nursing', '01810000001')
+('Dr. Rashed Karim', 'Doctor', 7, 'MBBS, MD', '01730000001'),
+('Nurse Tasnim Akter', 'Nurse', 4, 'BSc Nursing', '01731000002');
 
 -- Create the Vaccination table
 CREATE TABLE Vaccination (
