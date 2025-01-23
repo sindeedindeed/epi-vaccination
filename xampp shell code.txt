@@ -1,11 +1,7 @@
--- Connect to MySQL
-mysql -h localhost -u root
-
--- Create and use the database
 CREATE DATABASE epi_vaccination;
 USE epi_vaccination;
 
--- Create the Child table
+-- Create the Child table first (no dependencies)
 CREATE TABLE Child (
     child_id INT PRIMARY KEY AUTO_INCREMENT,
     child_name VARCHAR(100),
@@ -16,40 +12,21 @@ CREATE TABLE Child (
     contact_no VARCHAR(15)
 );
 
--- Insert data into Child table
-INSERT INTO Child (child_id, child_name, dob, age, address, guardian_name, contact_no) VALUES
-(10001, 'Farhan Hasib', '2014-12-20', 10, 'Road-8, Block-C, Eskaton, Dhaka', 'Abdul Alim', '01910000001'),
-(10002, 'Ramim Ayon', '2014-12-19', 10, 'Road-2, Block-D, Uttara, Dhaka', 'Ruhul Amin', '01910000002')
-(5, 'Tahmid Hasan', '2017-03-15', 7, 'House-45, Block-A, Gulshan, Dhaka', 'Hasan Ali', '01720000001'),
-(6, 'Ishrat Jahan', '2018-08-21', 6, 'Road-11, Block-F, Banani, Dhaka', 'Farida Begum', '01721000002'),
-(7, 'Arman Khan', '2016-12-10', 8, 'Sector-4, Uttara, Dhaka', 'Saiful Khan', '01722000003'),
-(8, 'Mahi Rahman', '2015-09-05', 9, 'Flat-8, Building-12, Mirpur-1, Dhaka', 'Nadia Rahman', '01723000004');
-
--- Create the Vaccine table
+-- Create the Vaccine table (no dependencies)
 CREATE TABLE Vaccine (
     vaccine_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100),
     dose INT
 );
 
--- Insert data into Vaccine table
-INSERT INTO Vaccine (vaccine_id, name, dose) VALUES
-(100000001, 'Pfizer', 3),
-(100000002, 'Sinopharm', 4);
-
--- Create the Vaccination_Centre table
+-- Create the Vaccination_Centre table (no dependencies)
 CREATE TABLE Vaccination_Centre (
     centre_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100),
     location VARCHAR(255)
 );
 
--- Insert data into Vaccination_Centre table
-INSERT INTO Vaccination_Centre (centre_id, name, location) VALUES
-(1000001, 'Banani Branch', 'B-45/8, Banani, Dhaka'),
-(1000002, 'Malibagh Branch', 'D-34/3, Malibagh, Dhaka');
-
--- Create the Healthcare_Professional table
+-- Create the Healthcare_Professional table (no dependencies)
 CREATE TABLE Healthcare_Professional (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100),
@@ -59,14 +36,7 @@ CREATE TABLE Healthcare_Professional (
     contact_info VARCHAR(15)
 );
 
--- Corrected INSERT statement for Healthcare_Professional table
-INSERT INTO Healthcare_Professional (id, name, role, years_of_experience, qualification, contact_info) VALUES
-(700001, 'Doctor One', 'Doctor', 2, 'MBBS', '01710000001'),
-(800001, 'Nurse One', 'Nurse', 1, 'BSc Nursing', '01810000001')
-('Dr. Rashed Karim', 'Doctor', 7, 'MBBS, MD', '01730000001'),
-('Nurse Tasnim Akter', 'Nurse', 4, 'BSc Nursing', '01731000002');
-
--- Create the Vaccination table
+-- Now create the Vaccination table (depends on all the above tables)
 CREATE TABLE Vaccination (
     record_id INT PRIMARY KEY, -- Use a unique record ID for each entry
     child_id INT,
@@ -81,10 +51,37 @@ CREATE TABLE Vaccination (
     FOREIGN KEY (centre_id) REFERENCES Vaccination_Centre(centre_id)
 );
 
+-- Insert data into Child table
+INSERT INTO Child (child_id, child_name, dob, age, address, guardian_name, contact_no) VALUES
+(10001, 'Farhan Hasib', '2014-12-20', 10, 'Road-8, Block-C, Eskaton, Dhaka', 'Abdul Alim', '01910000001'),
+(10002, 'Ramim Ayon', '2014-12-19', 10, 'Road-2, Block-D, Uttara, Dhaka', 'Ruhul Amin', '01910000002'),
+(5, 'Tahmid Hasan', '2017-03-15', 7, 'House-45, Block-A, Gulshan, Dhaka', 'Hasan Ali', '01720000001'),
+(6, 'Ishrat Jahan', '2018-08-21', 6, 'Road-11, Block-F, Banani, Dhaka', 'Farida Begum', '01721000002'),
+(7, 'Arman Khan', '2016-12-10', 8, 'Sector-4, Uttara, Dhaka', 'Saiful Khan', '01722000003'),
+(8, 'Mahi Rahman', '2015-09-05', 9, 'Flat-8, Building-12, Mirpur-1, Dhaka', 'Nadia Rahman', '01723000004');
+
+-- Insert data into Vaccine table
+INSERT INTO Vaccine (vaccine_id, name, dose) VALUES
+(100000001, 'Pfizer', 3),
+(100000002, 'Sinopharm', 4);
+
+-- Insert data into Vaccination_Centre table
+INSERT INTO Vaccination_Centre (centre_id, name, location) VALUES
+(1000001, 'Banani Branch', 'B-45/8, Banani, Dhaka'),
+(1000002, 'Malibagh Branch', 'D-34/3, Malibagh, Dhaka');
+
+-- Insert data into Healthcare_Professional table
+INSERT INTO Healthcare_Professional (id, name, role, years_of_experience, qualification, contact_info) VALUES
+(700001, 'Doctor One', 'Doctor', 2, 'MBBS', '01710000001'),
+(800001, 'Nurse One', 'Nurse', 1, 'BSc Nursing', '01810000001'),
+(700002, 'Dr. Rashed Karim', 'Doctor', 7, 'MBBS, MD', '01730000001'),
+(800002, 'Nurse Tasnim Akter', 'Nurse', 4, 'BSc Nursing', '01731000002');
+
+-- Insert data into Vaccination table (after all dependencies exist)
 INSERT INTO Vaccination (record_id, child_id, vaccine_id, healthcare_professional_id, centre_id, date_administered, due_date) VALUES
-(1000001, 10001, 100000001, 700001, 1000001, '2024-12-20', '2024-12-31'), -- Farhan Hasib, Dr. Ahsan
-(1000002, 10002, 100000002, 800001, 1000002, '2024-12-19', '2024-12-30'), -- Ramim Ayon, Nurse Tasnim
-(1000003, 10003, 100000001, 700001, 1000001, '2024-12-21', '2024-12-31'), -- Anika Rahman, Dr. Ahsan
-(1000004, 10004, 100000002, 700001, 1000002, '2024-12-22', '2024-12-31'), -- Samiul Islam, Dr. Ahsan
-(1000005, 10005, 100000001, 800001, 1000001, '2024-12-23', '2024-12-31'), -- Tahmid Hasan, Nurse Tasnim
-(1000006, 10006, 100000002, 800001, 1000002, '2024-12-24', '2024-12-31'); -- Ishrat Jahan, Nurse Tasnim
+(1000001, 10001, 100000001, 700001, 1000001, '2024-12-20', '2024-12-31'), 
+(1000002, 10002, 100000002, 800001, 1000002, '2024-12-19', '2024-12-30'), 
+(1000003, 5, 100000001, 700001, 1000001, '2024-12-21', '2024-12-31'), 
+(1000004, 6, 100000002, 700001, 1000002, '2024-12-22', '2024-12-31'), 
+(1000005, 7, 100000001, 800001, 1000001, '2024-12-23', '2024-12-31'), 
+(1000006, 8, 100000002, 800001, 1000002, '2024-12-24', '2024-12-31');
