@@ -88,3 +88,6 @@ INSERT INTO Vaccination (record_id, child_id, vaccine_id, healthcare_professiona
 (1000004, 10004, 100000002, 700001, 1000002, '2024-12-22', '2024-12-31'), -- Samiul Islam, Dr. Ahsan
 (1000005, 10005, 100000001, 800001, 1000001, '2024-12-23', '2024-12-31'), -- Tahmid Hasan, Nurse Tasnim
 (1000006, 10006, 100000002, 800001, 1000002, '2024-12-24', '2024-12-31'); -- Ishrat Jahan, Nurse Tasnim
+
+ALTER TABLE Vaccination
+ADD COLUMN status ENUM('pending', 'visited') DEFAULT 'pending';

@@ -1,0 +1,5 @@
+# .htaccess
+<Files "db_connect.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
