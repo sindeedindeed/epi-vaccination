@@ -82,3 +82,4 @@ INSERT INTO Healthcare_Professional (id, name, role, years_of_experience, qualif
 (700002, 'Dr. Rashed Karim', 'Doctor', 7, 'MBBS, MD', '01730000001'),
 (800002, 'Nurse Tasnim Akter', 'Nurse', 4, 'BSc Nursing', '01731000002');
 
+ALTER TABLE Vaccination ADD COLUMN dose_number INT DEFAULT 1;
