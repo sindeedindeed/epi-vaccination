@@ -1,7 +1,3 @@
-Here's a **README** file template for your GitHub repository based on your project setup:
-
----
-
 # EPI Vaccination Management System
 
 This project is a part of the **Database Management Systems (DBMS) course**. The **EPI Vaccination Management System** is a web application designed to streamline vaccine administration and record-keeping. It provides secure access for doctors, nurses, patients, and administrators.
